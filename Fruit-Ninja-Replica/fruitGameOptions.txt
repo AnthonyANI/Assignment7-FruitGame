@@ -1,0 +1,6 @@
+fruitSize,2
+fruitSpawnSpeed,2
+fruitSpeed,2
+bladeSize,2
+gravity,2
+gameTimer,True
