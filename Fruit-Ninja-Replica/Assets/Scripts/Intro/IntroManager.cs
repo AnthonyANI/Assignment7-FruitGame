@@ -19,6 +19,7 @@ public class IntroManager : MonoBehaviour
 
     public void StartGame()
     {
+        GameDataManager.LoadGameOptions();
         ScoreManager.ResetCurrentScores();
         SceneManager.LoadScene("HighScores");
     }

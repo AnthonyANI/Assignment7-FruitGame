@@ -29,7 +29,7 @@ public class GameplayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateGameTimer();
+        UpdateGamePlayingStatus();
         UpdateSlicedText();
         UpdateDroppedIcons();
     }
@@ -71,23 +71,23 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    private void UpdateGameTimer()
+    private void UpdateGamePlayingStatus()
     {
-        if (GameDataManager.gameTimer)
+        if (timer > 0 && !isGameover)
         {
-            if (timer > 0 && !isGameover)
+            if (GameDataManager.gameTimer)
             {
                 timer -= Time.deltaTime;
                 if (timerText)
                     timerText.text = ((int)timer).ToString();
             }
-            else
-            {
-                if (!isGameover)
-                    isGameover = true;
-                else if (GameObject.FindGameObjectsWithTag("Fruit").Length == 0)
-                    SceneManager.LoadScene("Outro");
-            }
+        }
+        else
+        {
+            if (!isGameover)
+                isGameover = true;
+            else if (GameObject.FindGameObjectsWithTag("Fruit").Length == 0)
+                SceneManager.LoadScene("Outro");
         }
     }
 }

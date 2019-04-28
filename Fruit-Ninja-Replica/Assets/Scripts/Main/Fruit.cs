@@ -5,14 +5,17 @@ public class Fruit : MonoBehaviour
 
     public GameObject fruitSlicedPrefab;
     public GameObject droppedXPrefab;
-    public float startForce = 7.5f;
+    public float startForce = 10f;
 
     Rigidbody2D rb;
+    float scale;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.AddForce(transform.up * (startForce * GameDataManager.fruitSpeed), ForceMode2D.Impulse);
+        rb.AddForce(transform.up * (startForce * (1f + .5f * GameDataManager.fruitSpeed)), ForceMode2D.Impulse);
+        scale = (float)GameDataManager.fruitSize * .5f;
+        transform.localScale = new Vector3(scale, scale, 1f);
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -25,6 +28,7 @@ public class Fruit : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(direction);
 
             GameObject slicedFruit = Instantiate(fruitSlicedPrefab, transform.position, rotation);
+            slicedFruit.transform.localScale = new Vector3(scale, scale, scale);
             Destroy(slicedFruit, 3f);
             Destroy(gameObject);
         }
